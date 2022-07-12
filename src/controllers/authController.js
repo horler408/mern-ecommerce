@@ -58,7 +58,8 @@ const login = async (req, res) => {
 
       jwt.sign(
         { id: user._id },
-        config.get('jwtsecret'),
+        // config.get('jwtsecret'),
+        'sg47)-d=jf)',
         { expiresIn: 3600 },
         (err, token) => {
           if (err) throw err;
@@ -90,6 +91,7 @@ const getUsers = (req, res) => {
 };
 
 const getUser = (req, res) => {
+  const id = req.params.id;
   User.findById(req.user.id)
     .select('-password')
     .then((user) => res.json(user));

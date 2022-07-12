@@ -1,22 +1,37 @@
 const Cart = require('../models/cartModel');
 const Item = require('../models/itemModel');
 
-module.exports.get_cart_items = async (req, res) => {
+const getCarts = async (req, res) => {
+  try {
+    const carts = await Cart.find();
+    if (carts) res.json(carts);
+    else {
+      res.json(null);
+    }
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({
+      msg: 'Error occured!',
+    });
+  }
+};
+
+const getCartItems = async (req, res) => {
   const userId = req.params.id;
   try {
     let cart = await Cart.findOne({ userId });
     if (cart && cart.items.length > 0) {
-      res.send(cart);
+      res.json(cart);
     } else {
-      res.send(null);
+      res.json(null);
     }
   } catch (err) {
     console.log(err);
-    res.status(500).send('Something went wrong');
+    res.status(500).json('Something went wrong');
   }
 };
 
-module.exports.add_cart_item = async (req, res) => {
+const addCartItem = async (req, res) => {
   const userId = req.params.id;
   const { productId, quantity } = req.body;
 
@@ -24,7 +39,7 @@ module.exports.add_cart_item = async (req, res) => {
     let cart = await Cart.findOne({ userId });
     let item = await Item.findOne({ _id: productId });
     if (!item) {
-      res.status(404).send('Item not found!');
+      res.status(404).json('Item not found!');
     }
     const price = item.price;
     const name = item.title;
@@ -43,7 +58,7 @@ module.exports.add_cart_item = async (req, res) => {
       }
       cart.bill += quantity * price;
       cart = await cart.save();
-      return res.status(201).send(cart);
+      return res.status(201).json(cart);
     } else {
       // no cart exists, create one
       const newCart = await Cart.create({
@@ -51,15 +66,15 @@ module.exports.add_cart_item = async (req, res) => {
         items: [{ productId, name, quantity, price }],
         bill: quantity * price,
       });
-      return res.status(201).send(newCart);
+      return res.status(201).json(newCart);
     }
   } catch (err) {
     console.log(err);
-    res.status(500).send('Something went wrong');
+    res.status(500).json('Something went wrong');
   }
 };
 
-module.exports.delete_item = async (req, res) => {
+const deleteCartItem = async (req, res) => {
   const userId = req.params.userId;
   const productId = req.params.itemId;
   try {
@@ -71,9 +86,11 @@ module.exports.delete_item = async (req, res) => {
       cart.items.splice(itemIndex, 1);
     }
     cart = await cart.save();
-    return res.status(201).send(cart);
+    return res.status(201).json(cart);
   } catch (err) {
     console.log(err);
-    res.status(500).send('Something went wrong');
+    res.status(500).json('Something went wrong');
   }
 };
+
+module.exports = { getCarts, getCartItems, addCartItem, deleteCartItem };

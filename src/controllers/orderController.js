@@ -4,14 +4,14 @@ const User = require('../models/userModel');
 const config = require('config');
 // const stripe = require('stripe')(config.get('StripeAPIKey'));
 
-module.exports.get_orders = async (req, res) => {
+const getOrders = async (req, res) => {
   const userId = req.params.id;
   Order.find({ userId })
     .sort({ date: -1 })
     .then((orders) => res.json(orders));
 };
 
-module.exports.checkout = async (req, res) => {
+const checkout = async (req, res) => {
   try {
     const userId = req.params.id;
     const { source } = req.body;
@@ -21,7 +21,7 @@ module.exports.checkout = async (req, res) => {
     if (cart) {
       const charge = await stripe.charges.create({
         amount: cart.bill,
-        currency: 'inr',
+        currency: 'ngr',
         source: source,
         receipt_email: email,
       });
@@ -43,3 +43,5 @@ module.exports.checkout = async (req, res) => {
     res.status(500).send('Something went wrong');
   }
 };
+
+module.exports = { getOrders, checkout };
