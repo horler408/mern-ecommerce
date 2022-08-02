@@ -10,11 +10,14 @@ const itemRoutes = require('./routes/itemRoute');
 const cartRoutes = require('./routes/cartRoute');
 const orderRoutes = require('./routes/orderRoute');
 
+// Middlewares
 const app = express();
 app.use(express.json());
 
+// Database connection
 dbConnect();
 
+// Routes
 app.use('/api/e-commerce', authRoutes);
 app.use('/api/e-commerce', itemRoutes);
 app.use('/api/e-commerce', cartRoutes);
