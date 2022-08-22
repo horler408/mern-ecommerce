@@ -1,7 +1,8 @@
 const express = require('express');
 // const mongoose = require('mongoose');
 const path = require('path');
-// const config = require('config');
+const dotenv = require('dotenv');
+const bodyParser = require('body-parser');
 
 const dbConnect = require('./config/db.js');
 
@@ -12,13 +13,20 @@ const orderRoutes = require('./routes/orderRoute');
 
 // Middlewares
 const app = express();
-app.use(express.json());
+app.use(express.json()); // to accept json data
+
+// Body Parser Middleware
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 
 // Database connection
 dbConnect();
 
+// Config data storage
+dotenv.config();
+
 // Routes
-app.use('/api/e-commerce', authRoutes);
+app.use('/api/e-commerce/users', authRoutes);
 app.use('/api/e-commerce', itemRoutes);
 app.use('/api/e-commerce', cartRoutes);
 app.use('/api/e-commerce', orderRoutes);
@@ -32,8 +40,8 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 // connecting to mongoDB and then running server on port 4000
-// const dbURI = config.get('dbURI');
-const PORT = process.env.PORT || 4000;
+// const dbURI = process.env.dbURI;
+const PORT = process.env.PORT || 5000;
 // mongoose
 //   .connect(dbURI, {
 //     useNewUrlParser: true,

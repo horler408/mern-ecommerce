@@ -80,7 +80,7 @@ class Orders extends Component {
                                   {item.name} ({item.quantity} pieces)
                                 </CardTitle>
                                 <CardSubtitle tag="h6">
-                                  Rs. {item.price}/piece
+                                  NGN {item.price}/piece
                                 </CardSubtitle>
                               </CardBody>
                             </Card>

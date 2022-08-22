@@ -37,7 +37,7 @@ class AppNavbar extends Component {
       <Fragment>
         <NavItem>
           <span className="navbar-text mr-3">
-            <strong>{user ? `Welcome ${user.name}` : ''}</strong>
+            <strong>{user ? `Welcome ${user.name}` : 'Welcome'}</strong>
           </span>
         </NavItem>
         <NavItem>
@@ -49,6 +49,12 @@ class AppNavbar extends Component {
         <NavItem className="mr-2">
           <NavLink href="/orders">Orders</NavLink>
         </NavItem>
+        {/* <NavItem className="mr-2">
+          <NavLink href="/register">Register</NavLink>
+        </NavItem>
+        <NavItem className="mr-2">
+          <NavLink href="/login">Login</NavLink>
+        </NavItem> */}
         <NavItem>
           <Logout />
         </NavItem>

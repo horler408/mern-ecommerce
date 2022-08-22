@@ -8,6 +8,9 @@
 # testing
 /coverage
 
+# testing form validation
+/src/components/validation
+
 # production
 /build
 

@@ -5,6 +5,8 @@ import { Switch, Route, Redirect, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import Cart from './Cart';
 import Orders from './Orders';
+import Register from './validation/Register';
+import Login from './validation/Login';
 
 class Main extends Component {
   render() {
@@ -23,6 +25,12 @@ class Main extends Component {
           <Route path="/orders">
             <Orders />
           </Route>
+          {/* <Route path="/register">
+            <Register />
+          </Route>
+          <Route path="/login">
+            <Login />
+          </Route> */}
           <Redirect to="/home" />
         </Switch>
       </div>

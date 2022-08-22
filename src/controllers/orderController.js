@@ -1,8 +1,7 @@
 const Order = require('../models/orderModel');
 const Cart = require('../models/cartModel');
 const User = require('../models/userModel');
-const config = require('config');
-// const stripe = require('stripe')(config.get('StripeAPIKey'));
+const stripe = require('stripe')(process.env.StripeAPIKey);
 
 const getOrders = async (req, res) => {
   const userId = req.params.id;
@@ -21,7 +20,7 @@ const checkout = async (req, res) => {
     if (cart) {
       const charge = await stripe.charges.create({
         amount: cart.bill,
-        currency: 'ngr',
+        currency: 'NGN',
         source: source,
         receipt_email: email,
       });

@@ -24,7 +24,7 @@ class Cart extends Component {
   static propTypes = {
     getCart: PropTypes.func.isRequired,
     isAuthenticated: PropTypes.bool,
-    addToCart: PropTypes.func.isRequired,
+    // addToCart: PropTypes.func.isRequired,
     deleteFromCart: PropTypes.func.isRequired,
     user: PropTypes.object.isRequired,
     cart: PropTypes.object.isRequired,
@@ -73,11 +73,11 @@ class Cart extends Component {
           <Container>
             <div className="row">
               {this.props.cart.cart.items.map((item) => (
-                <div className="col-md-4">
+                <div className="col-md-4" key={item._id}>
                   <Card>
                     <CardBody>
                       <CardTitle tag="h5">{item.name}</CardTitle>
-                      <CardSubtitle tag="h6">Rs. {item.price}</CardSubtitle>
+                      <CardSubtitle tag="h6">EUR {item.price}</CardSubtitle>
                       <CardText>Quantity - {item.quantity}</CardText>
                       <Button
                         color="danger"
@@ -94,11 +94,11 @@ class Cart extends Component {
                   <br />
                 </div>
               ))}
-              <div class="col-md-12">
+              <div className="col-md-12">
                 <Card>
                   <CardBody>
                     <CardTitle tag="h5">
-                      Total Cost = Rs. {this.props.cart.cart.bill}
+                      Total Cost = EUR {this.props.cart.cart.bill}
                     </CardTitle>
                     <Checkout
                       user={user._id}

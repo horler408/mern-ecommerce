@@ -24,7 +24,7 @@ class Home extends Component {
     item: PropTypes.object.isRequired,
     isAuthenticated: PropTypes.bool,
     addToCart: PropTypes.func.isRequired,
-    user: PropTypes.object.isRequired,
+    user: PropTypes.object,
   };
 
   onAddToCart = async (id, productId) => {
@@ -34,6 +34,7 @@ class Home extends Component {
 
   render() {
     const { items } = this.props.item;
+    console.log(items);
     const user = this.props.user;
     return (
       <div>
@@ -41,11 +42,11 @@ class Home extends Component {
         <Container>
           <div className="row">
             {items.map((item) => (
-              <div className="col-md-4">
+              <div className="col-md-4" key={item._id}>
                 <Card className="mb-4">
                   <CardBody>
                     <CardTitle tag="h5">{item.title}</CardTitle>
-                    <CardSubtitle tag="h6">Rs. {item.price}</CardSubtitle>
+                    <CardSubtitle tag="h6">NGN {item.price}</CardSubtitle>
                     <CardText>{item.category}</CardText>
                     {this.props.isAuthenticated ? (
                       <Button

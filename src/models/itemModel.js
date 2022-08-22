@@ -18,6 +18,11 @@ const ItemSchema = new Schema({
     type: Number,
     required: true,
   },
+  image: {
+    type: String,
+    default:
+      'https://icon-library.com/images/anonymous-avatar-icon/anonymous-avatar-icon-25.jpg',
+  },
   date_added: {
     type: Date,
     default: Date.now,
